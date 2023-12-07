@@ -7,7 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DomainEntityLayer\**" />
+    <Content Remove="DomainEntityLayer\**" />
+    <EmbeddedResource Remove="DomainEntityLayer\**" />
+    <None Remove="DomainEntityLayer\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.24" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DomainLayer\Core\" />
+    <Folder Include="DomainLayer\Entity\" />
+    <Folder Include="DomainLayer\Interface\" />
+    <Folder Include="InfraestructureLayer\Interface\" />
+    <Folder Include="InfraestructureLayer\Repository\" />
+    <Folder Include="Modules\Mapper\" />
   </ItemGroup>
 
 </Project>
