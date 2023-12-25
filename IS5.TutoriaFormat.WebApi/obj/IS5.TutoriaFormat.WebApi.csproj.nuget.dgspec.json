@@ -44,6 +44,14 @@
               "target": "Package",
               "version": "[2.1.24, )"
             },
+            "DocX": {
+              "target": "Package",
+              "version": "[2.5.0, )"
+            },
+            "Microsoft.Office.Interop.Word": {
+              "target": "Package",
+              "version": "[15.0.4797.1004, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
