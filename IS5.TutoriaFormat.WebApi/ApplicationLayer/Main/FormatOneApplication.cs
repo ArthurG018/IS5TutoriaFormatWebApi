@@ -1,5 +1,6 @@
 ﻿using IS5.TutoriaFormat.WebApi.ApplicationLayer.Dto;
 using IS5.TutoriaFormat.WebApi.ApplicationLayer.Interface;
+using SautinSoft.Document;
 using System.Text.RegularExpressions;
 using Xceed.Document.NET;
 using Xceed.Words.NET;
@@ -15,7 +16,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
 
         public void generateFormat(ProfessorDto professorDto)
         {
-            loadDictonary(professorDto);
+            loadDictionary(professorDto);
 
             using (var document = DocX.Load(_templatePath))
             {
@@ -29,6 +30,9 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
                     };
                     document.ReplaceText(replaceText);
                     document.SaveAs(_reportPath + professorDto.Dni + "-F01.docx");
+                    //GenerateFormatAsHtml(professorDto);
+                    //DocxToHtml(professorDto);
+                    //ConvertDocxToHtml(professorDto);
                 }
             }
         }
@@ -49,8 +53,17 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
             }
             return response;
         }
+        public void GenerateFormatAsHtml(ProfessorDto professorDto)
+        {
+            DocumentCore dc = DocumentCore.Load(_reportPath + professorDto.Dni + "-F01.docx");
 
-        public void loadDictonary(ProfessorDto professorDto)
+            // Guardar el documento en formato HTML
+            dc.Save(_reportPath + professorDto.Dni + "-F01.html", new HtmlFixedSaveOptions());
+        }
+       
+
+
+        public void loadDictionary(ProfessorDto professorDto)
         {
             _replacePatterns.Add("FullName", professorDto.FullName);
             _replacePatterns.Add("School", professorDto.School);
@@ -85,5 +98,11 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
             }
             return result;
         }
+        public void ConvertDocxToHtml(ProfessorDto professorDto)
+        {
+          
+
+        }
+
     }
 }

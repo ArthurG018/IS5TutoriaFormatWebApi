@@ -11,7 +11,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
             foreach (var incidence in incidenceDtos)
             {
                 string delimiter = (incidence == incidenceDtos.Last()) ? ";" : ",";
-                query += $"('{incidence.Reason}', '{incidence.Treatment}', '{incidence.Observation}',{incidence.ProfesorId}, {incidence.StudentId})";
+                query += $"('{incidence.Reason}', '{incidence.Treatment}', '{incidence.Observation}',{incidence.ProfessorId}, {incidence.StudentId}){delimiter}";
             }
             return query;
         }

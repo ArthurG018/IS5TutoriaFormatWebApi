@@ -13,7 +13,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
             {
                 delimiter = (activity == activities.Last()) ? ";": ",";
                 query += $"('{formatDate(activity.Date)}', '{activity.Name}', '{activity.Speaker}', '{activity.Purpose}', " +
-                    $"'{activity.Result}', {getIsPresentation(activity.IsPresentation)}, {activity.ProfessorId}){delimiter}";
+                    $"'{activity.Result}', {getBool(activity.IsPresentation)}, {activity.ProfessorId}){delimiter}";
             }
             return query;
         }
@@ -25,10 +25,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
         {
             return (data) ? 1 : 0;
         }
-        public int getIsPresentation(bool data)
-        {
-            return (data) ? 0 : 1;
-        }
+       
         public string formatDate(string data)
         {
             DateTime fechaConvertida = DateTime.ParseExact(data, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);

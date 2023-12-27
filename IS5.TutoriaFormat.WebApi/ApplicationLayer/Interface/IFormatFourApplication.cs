@@ -2,5 +2,6 @@
 {
     public interface IFormatFourApplication
     {
+        void generateFormat(dynamic dynamic);
     }
 }
