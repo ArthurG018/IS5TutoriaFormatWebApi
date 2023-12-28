@@ -15,7 +15,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
             {
                 foreach (var imageBytes in evidenceFormatDto.Evidences)
                 {
-                    using (var memoryStream = new MemoryStream(imageBytes))
+                    using (var memoryStream = new MemoryStream(Convert.FromBase64String(imageBytes)))
                     {
                         var image = document.AddImage(memoryStream);
                         Picture picture = image.CreatePicture();

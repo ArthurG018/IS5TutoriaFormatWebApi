@@ -3,6 +3,6 @@
     public class EvidenceFormatDto
     {
         public ProfessorDto Professor { get; set; }
-        public List<byte[]> Evidences { get; set; }
+        public List<String> Evidences { get; set; }
     }
 }
