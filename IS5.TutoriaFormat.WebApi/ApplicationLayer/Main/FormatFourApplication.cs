@@ -131,16 +131,18 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
 
                     int profPos = dynamic.Count;
                     int elementPos = numTable.ElementAt(1) + 1;
+                    int rowsPos = numTable.ElementAt(1);
 
                     for (int i = elementPos; i < dynamic.Count; i++)
                     {
                         var students = dynamic[i] as IDictionary<string, object>;
+                       
 
                         if (students.ElementAt(0).Value != null || rows == 1) break;
                         int celda = 0;
                         for (int j = 5; j < students.Count; j++)
                         {
-                            table.Rows[i].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
+                            table.Rows[i - 1].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
                             celda++;
                         }
                     }
@@ -214,7 +216,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
                         int celda = 0;
                         for (int j = 5; j < students.Count; j++)
                         {
-                            table.Rows[i].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
+                            table.Rows[i-1].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
                             celda++;
                         }
                     }
@@ -287,7 +289,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
                         int celda = 0;
                         for (int j = 5; j < students.Count; j++)
                         {
-                            table.Rows[i].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
+                            table.Rows[i-1].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
                             celda++;
                         }
                     }
@@ -348,15 +350,15 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
         }
         public void loadDictonaryM2(IDictionary<string, object> professor)
         {
-            _replacePatternsM1.Add("Mes2", (string)professor.ElementAt(4).Value);
+            _replacePatternsM2.Add("Mes2", (string)professor.ElementAt(4).Value);
         }
         public void loadDictonaryM3(IDictionary<string, object> professor)
         {
-            _replacePatternsM1.Add("Mes3", (string)professor.ElementAt(4).Value);
+            _replacePatternsM3.Add("Mes3", (string)professor.ElementAt(4).Value);
         }
         public void loadDictonaryM4(IDictionary<string, object> professor)
         {
-            _replacePatternsM1.Add("Mes4", (string)professor.ElementAt(4).Value);
+            _replacePatternsM4.Add("Mes4", (string)professor.ElementAt(4).Value);
         }
         public void loadDictonaryT( int opc)
         {
