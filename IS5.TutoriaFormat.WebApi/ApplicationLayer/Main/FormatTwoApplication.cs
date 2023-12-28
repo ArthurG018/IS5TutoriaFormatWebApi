@@ -1,6 +1,5 @@
 ﻿using IS5.TutoriaFormat.WebApi.ApplicationLayer.Dto;
 using IS5.TutoriaFormat.WebApi.ApplicationLayer.Interface;
-using SautinSoft.Document;
 using System.Text.RegularExpressions;
 using Xceed.Document.NET;
 using Xceed.Words.NET;
@@ -118,13 +117,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
             return findKey;
         }
 
-        public void GenerateFormatAsHtml(string dni)
-        {
-            DocumentCore dc = DocumentCore.Load(_reportPath + dni + "-F02.docx");
-
-            // Guardar el documento en formato HTML
-            dc.Save(_reportPath + dni + "-F02.html", new HtmlFixedSaveOptions());
-        }
+       
 
     }
 }

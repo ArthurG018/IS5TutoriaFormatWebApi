@@ -29,6 +29,8 @@ namespace IS5.TutoriaFormat.WebApi.Modules.Injection
 
             services.AddScoped<IFormatThreeApplication, FormatThreeApplication>();
 
+            services.AddScoped<IFormatEvidencesApplication, FormatEvidencesApplication>();
+
             services.AddScoped<IIncidencesFormatApplication, IncidencesFormatApplication>();
             services.AddScoped<IFormatFiveApplicationcs, FormatFiveApplication>();
 

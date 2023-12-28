@@ -16,8 +16,9 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
         private readonly IFormatThreeApplication _formatThreeApplication;
         private readonly IFormatFourApplication _formatFourApplication;
         private readonly IFormatFiveApplicationcs _formatFiveApplicationcs;
+        private readonly IFormatEvidencesApplication _formatEvidencesApplication;
 
-        public FormatsController(IFormatApplication formatApplication, IActivitiesFormatApplication activitiesFormatApplication, IIncidencesFormatApplication incidentidencesFormatApplication, IFormatOneApplication formatOneApplication, IFormatTwoApplication formatTwoApplication, IFormatThreeApplication formatThreeApplication, IFormatFourApplication formatFourApplication, IFormatFiveApplicationcs formatFiveApplicationcs)
+        public FormatsController(IFormatApplication formatApplication, IActivitiesFormatApplication activitiesFormatApplication, IIncidencesFormatApplication incidentidencesFormatApplication, IFormatOneApplication formatOneApplication, IFormatTwoApplication formatTwoApplication, IFormatThreeApplication formatThreeApplication, IFormatFourApplication formatFourApplication, IFormatFiveApplicationcs formatFiveApplicationcs, IFormatEvidencesApplication formatEvidencesApplication)
         {
             _formatApplication = formatApplication;
             _activitiesFormatApplication = activitiesFormatApplication;
@@ -27,6 +28,7 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             _formatThreeApplication = formatThreeApplication;
             _formatFourApplication = formatFourApplication;
             _formatFiveApplicationcs = formatFiveApplicationcs;
+            _formatEvidencesApplication = formatEvidencesApplication;
         }
 
         [HttpPost]
@@ -36,7 +38,7 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             if (professorDto == null) return BadRequest();
             _formatOneApplication.generateFormat(professorDto);
             var response = _formatOneApplication.getFormat(professorDto);
-
+            _formatOneApplication.ConvertDocxToHtml(professorDto);
             return Ok(response);
 
         }
@@ -73,7 +75,7 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             if (activitiesFormat == null) return BadRequest();
             var querys = _activitiesFormatApplication.generateQuery(activitiesFormat);
             var dynamic = _formatApplication.generateFormat4(querys[0], querys[1], querys[2], querys[3]);
-           
+            _formatFourApplication.generateFormat(dynamic);
 
             return Ok(dynamic);
 
@@ -87,11 +89,25 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             if (activitiesFormat == null) return BadRequest();
             var querys = _activitiesFormatApplication.generateQuery(activitiesFormat);
             var dynamic = _formatApplication.generateFormat5(querys[0], querys[1], querys[2], querys[3]);
-            //_formatTwoApplication.generateFormat(dynamic);
+            _formatFiveApplicationcs.generateFormat(dynamic);
             //var response = _formatTwoApplication.getFormat(dynamic);
             //_formatFiveApplicationcs.generateFormat(dynamic);
 
             return Ok(dynamic);
+
+
+        }
+
+        [HttpPost]
+        [ActionName("FormatEvidences")]
+        public IActionResult FormatEvidences([FromBody] EvidenceFormatDto evidenceFormatDto)
+        {
+            if (evidenceFormatDto == null) return BadRequest();
+            //_formatEvidencesApplication.generateFormat(evidenceFormatDto);
+            //var response = _formatTwoApplication.getFormat(dynamic);
+            //_formatFiveApplicationcs.generateFormat(dynamic);
+
+            return Ok("");
 
 
         }

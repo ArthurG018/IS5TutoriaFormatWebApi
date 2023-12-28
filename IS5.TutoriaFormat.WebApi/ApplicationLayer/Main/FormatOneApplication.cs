@@ -1,7 +1,8 @@
 ﻿using IS5.TutoriaFormat.WebApi.ApplicationLayer.Dto;
 using IS5.TutoriaFormat.WebApi.ApplicationLayer.Interface;
-using SautinSoft.Document;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Text.RegularExpressions;
+using TheArtOfDev.HtmlRenderer.PdfSharp;
 using Xceed.Document.NET;
 using Xceed.Words.NET;
 
@@ -53,13 +54,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
             }
             return response;
         }
-        public void GenerateFormatAsHtml(ProfessorDto professorDto)
-        {
-            DocumentCore dc = DocumentCore.Load(_reportPath + professorDto.Dni + "-F01.docx");
-
-            // Guardar el documento en formato HTML
-            dc.Save(_reportPath + professorDto.Dni + "-F01.html", new HtmlFixedSaveOptions());
-        }
+       
        
 
 
@@ -100,7 +95,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
         }
         public void ConvertDocxToHtml(ProfessorDto professorDto)
         {
-          
+            
 
         }
 
