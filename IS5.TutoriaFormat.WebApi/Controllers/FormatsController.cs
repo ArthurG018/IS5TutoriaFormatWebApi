@@ -103,7 +103,7 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
         public IActionResult FormatEvidences([FromBody] EvidenceFormatDto evidenceFormatDto)
         {
             if (evidenceFormatDto == null) return BadRequest();
-            //_formatEvidencesApplication.generateFormat(evidenceFormatDto);
+            _formatEvidencesApplication.generateFormat(evidenceFormatDto);
             //var response = _formatTwoApplication.getFormat(dynamic);
             //_formatFiveApplicationcs.generateFormat(dynamic);
 
