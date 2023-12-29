@@ -6,6 +6,6 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Interface
     {
         void generateFormat(ProfessorDto professorDto);
         ResponseDto getFormat(ProfessorDto professorDto);
-        void ConvertDocxToHtml(ProfessorDto professorDto);
+        void deleteFormat(ProfessorDto professorDto);
     }
 }

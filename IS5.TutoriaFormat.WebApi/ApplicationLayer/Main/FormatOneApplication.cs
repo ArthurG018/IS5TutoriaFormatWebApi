@@ -8,7 +8,7 @@ using Xceed.Words.NET;
 
 namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
 {
-    public class FormatOneApplication:IFormatOneApplication
+    public class FormatOneApplication : IFormatOneApplication
     {
         private Dictionary<string, string> _replacePatterns = new Dictionary<string, string>();
 
@@ -93,11 +93,21 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
             }
             return result;
         }
-        public void ConvertDocxToHtml(ProfessorDto professorDto)
+        public void deleteFormat(ProfessorDto professorDto)
         {
-            
+            var path = _reportPath + professorDto.Dni.ToString() + "-F01.docx";
+            try
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
 
+            }
+            catch
+            {
+
+            }
         }
-
     }
 }

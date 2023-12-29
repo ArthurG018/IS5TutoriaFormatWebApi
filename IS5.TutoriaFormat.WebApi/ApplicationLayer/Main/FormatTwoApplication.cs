@@ -63,7 +63,6 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
                     document.ReplaceText(replaceText);
                 }
                 document.SaveAs(_reportPath+professor.ElementAt(4).Value+"-F02.docx");
-               // GenerateFormatAsHtml((string)professor.ElementAt(4).Value); 
             }
 
         }
@@ -117,7 +116,22 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
             return findKey;
         }
 
-       
+        public void deleteFormat(dynamic dynamic)
+        {
+            var professor = dynamic[0] as IDictionary<string, object>;
+            var path = _reportPath + professor.ElementAt(4).Value + "-F02.docx";
+            try
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
 
+            }
+            catch
+            {
+
+            }
+        }
     }
 }

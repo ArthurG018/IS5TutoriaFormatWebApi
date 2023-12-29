@@ -38,9 +38,8 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             if (professorDto == null) return BadRequest();
             _formatOneApplication.generateFormat(professorDto);
             var response = _formatOneApplication.getFormat(professorDto);
-            _formatOneApplication.ConvertDocxToHtml(professorDto);
+            _formatOneApplication.deleteFormat(professorDto);
             return Ok(response);
-
         }
 
         [HttpPost]
@@ -52,11 +51,10 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             var dynamic = _formatApplication.generateFormat2(querys[0], querys[1], querys[2], querys[3]);
             _formatTwoApplication.generateFormat(dynamic);
             var response = _formatTwoApplication.getFormat(dynamic);
-            
+            _formatTwoApplication.deleteFormat(dynamic);
             return Ok(response);
-
-
         }
+
         [HttpPost]
         [ActionName("FormatThree")]
         public IActionResult FormatTwo([FromBody] IncidencesFormatDto incidencesFormatDto)
@@ -65,9 +63,11 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             var querys = _incidentidencesFormatApplication.generateQuery(incidencesFormatDto);
             var dynamic = _formatApplication.generateFormat3(querys[0], querys[1], querys[2]);
             _formatThreeApplication.generateFormat(dynamic);
-            return Ok(dynamic);
-
+            var response = _formatThreeApplication.getFormat(dynamic);
+            _formatThreeApplication.deleteFormat(dynamic);
+            return Ok(response);
         }
+
         [HttpPost]
         [ActionName("FormatFour")]
         public IActionResult FormatFour([FromBody] ActivitiesFormatDto activitiesFormat)
@@ -76,9 +76,9 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             var querys = _activitiesFormatApplication.generateQuery(activitiesFormat);
             var dynamic = _formatApplication.generateFormat4(querys[0], querys[1], querys[2], querys[3]);
             _formatFourApplication.generateFormat(dynamic);
-
-            return Ok(dynamic);
-
+            var response = _formatFourApplication.getFormat(dynamic);
+            _formatFourApplication.deleteFormat(dynamic);
+            return Ok(response);
         }
 
 
@@ -90,12 +90,9 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             var querys = _activitiesFormatApplication.generateQuery(activitiesFormat);
             var dynamic = _formatApplication.generateFormat5(querys[0], querys[1], querys[2], querys[3]);
             _formatFiveApplicationcs.generateFormat(dynamic);
-            //var response = _formatTwoApplication.getFormat(dynamic);
-            //_formatFiveApplicationcs.generateFormat(dynamic);
-
-            return Ok(dynamic);
-
-
+            var response = _formatFiveApplicationcs.getFormat(dynamic);
+            _formatFiveApplicationcs.deleteFormat(dynamic);
+            return Ok(response);
         }
 
         [HttpPost]
@@ -104,12 +101,9 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
         {
             if (evidenceFormatDto == null) return BadRequest();
             _formatEvidencesApplication.generateFormat(evidenceFormatDto);
-            //var response = _formatTwoApplication.getFormat(dynamic);
-            //_formatFiveApplicationcs.generateFormat(dynamic);
-
-            return Ok("");
-
-
+            var response = _formatEvidencesApplication.getFormat(evidenceFormatDto);
+            _formatEvidencesApplication.deleteFormat(evidenceFormatDto);
+            return Ok(response);
         }
 
 
