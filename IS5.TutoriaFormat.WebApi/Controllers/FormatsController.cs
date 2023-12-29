@@ -38,7 +38,7 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             if (professorDto == null) return BadRequest();
             _formatOneApplication.generateFormat(professorDto);
             var response = _formatOneApplication.getFormat(professorDto);
-            //_formatOneApplication.deleteFormat(professorDto);
+            _formatOneApplication.deleteFormat(professorDto);
             return Ok(response);
         }
 
@@ -77,7 +77,7 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             var dynamic = _formatApplication.generateFormat4(querys[0], querys[1], querys[2], querys[3]);
             _formatFourApplication.generateFormat(dynamic);
             var response = _formatFourApplication.getFormat(dynamic);
-            //_formatFourApplication.deleteFormat(dynamic);
+            _formatFourApplication.deleteFormat(dynamic);
             return Ok(response);
         }
 
@@ -91,7 +91,7 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             var dynamic = _formatApplication.generateFormat5(querys[0], querys[1], querys[2], querys[3]);
             _formatFiveApplicationcs.generateFormat(dynamic);
             var response = _formatFiveApplicationcs.getFormat(dynamic);
-            //_formatFiveApplicationcs.deleteFormat(dynamic);
+            _formatFiveApplicationcs.deleteFormat(dynamic);
             return Ok(response);
         }
 
@@ -102,7 +102,7 @@ namespace IS5.TutoriaFormat.WebApi.Controllers
             if (evidenceFormatDto == null) return BadRequest();
             _formatEvidencesApplication.generateFormat(evidenceFormatDto);
             var response = _formatEvidencesApplication.getFormat(evidenceFormatDto);
-            //_formatEvidencesApplication.deleteFormat(evidenceFormatDto);
+            _formatEvidencesApplication.deleteFormat(evidenceFormatDto);
             return Ok(response);
         }
 
