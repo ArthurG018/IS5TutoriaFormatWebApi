@@ -1,4 +1,5 @@
-﻿using IS5.TutoriaFormat.WebApi.ApplicationLayer.Interface;
+﻿using IS5.TutoriaFormat.WebApi.ApplicationLayer.Dto;
+using IS5.TutoriaFormat.WebApi.ApplicationLayer.Interface;
 using System.Text.RegularExpressions;
 using Xceed.Document.NET;
 using Xceed.Words.NET;
@@ -28,7 +29,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
                     if (numTable.ElementAt(i) == numTable.Last())
                     {
 
-                        listRow.Add(dynamic.Count - i);
+                        listRow.Add(dynamic.Count - (numTable.ElementAt(i)));
 
                     }
                     else 
@@ -132,7 +133,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
                     int profPos = dynamic.Count;
                     int elementPos = numTable.ElementAt(1) + 1;
                     int rowsPos = numTable.ElementAt(1);
-
+                    int countRow = 1;
                     for (int i = elementPos; i < dynamic.Count; i++)
                     {
                         var students = dynamic[i] as IDictionary<string, object>;
@@ -142,9 +143,10 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
                         int celda = 0;
                         for (int j = 5; j < students.Count; j++)
                         {
-                            table.Rows[i - 1].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
+                            table.Rows[countRow].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
                             celda++;
                         }
+                        countRow++;
                     }
                     var professor = dynamic[numTable.ElementAt(1)] as IDictionary<string, object>;
                     loadDictonaryM2(professor);
@@ -207,18 +209,21 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
 
                     int profPos = dynamic.Count;
                     int elementPos = numTable.ElementAt(2) + 1;
-
+                    int countRow = 1;
                     for (int i = elementPos; i < dynamic.Count; i++)
                     {
                         var students = dynamic[i] as IDictionary<string, object>;
 
                         if (students.ElementAt(0).Value != null || rows == 1) break;
                         int celda = 0;
+
                         for (int j = 5; j < students.Count; j++)
                         {
-                            table.Rows[i-1].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
+                            table.Rows[countRow].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
                             celda++;
                         }
+
+                        countRow++;
                     }
                     var professor = dynamic[numTable.ElementAt(2)] as IDictionary<string, object>;
                     loadDictonaryM3(professor);
@@ -280,7 +285,7 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
 
                     int profPos = dynamic.Count;
                     int elementPos = numTable.ElementAt(3) + 1;
-
+                    int countRow = 1;
                     for (int i = elementPos; i < dynamic.Count; i++)
                     {
                         var students = dynamic[i] as IDictionary<string, object>;
@@ -289,9 +294,11 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
                         int celda = 0;
                         for (int j = 5; j < students.Count; j++)
                         {
-                            table.Rows[i-1].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
+                            table.Rows[countRow].Cells[celda].Paragraphs[0].Append(students.ElementAt(j).Value.ToString());
                             celda++;
                         }
+
+                        countRow++;
                     }
                     var professor = dynamic[numTable.ElementAt(2)] as IDictionary<string, object>;
                     loadDictonaryM4(professor);
@@ -337,9 +344,25 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
                 }
                 
                 document.SaveAs(_reportPath + professorData.ElementAt(3).Value + "-F04.docx");
-                //GenerateFormatAsHtml((string)professor.ElementAt(4).Value);
 
             }
+        }
+        public ResponseDto getFormat(dynamic dynamic)
+        {
+            var response = new ResponseDto();
+            var professor = dynamic[0] as IDictionary<string, object>;
+            using (var document = DocX.Load(_reportPath + professor.ElementAt(3).Value + "-F04.docx"))
+            {
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    document.SaveAs(memoryStream);
+                    response.Format = memoryStream.ToArray();
+                    response.Status = true;
+                    response.NumberFormat = 1;
+                    response.Name = professor.ElementAt(3).Value + "-F04";
+                }
+            }
+            return response;
         }
         public void loadDictonaryM1(IDictionary<string, object> professor)
         {
@@ -451,7 +474,23 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
             }
             return numTables;
         }
-      
 
+        public void deleteFormat(dynamic dynamic)
+        {
+            var professor = dynamic[0] as IDictionary<string, object>;
+            var path = _reportPath + professor.ElementAt(3).Value + "-F04.docx";
+            try
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+            }
+            catch
+            {
+
+            }
+        }
     }
 }

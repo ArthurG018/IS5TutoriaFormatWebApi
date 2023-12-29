@@ -1,11 +1,12 @@
-﻿using IS5.TutoriaFormat.WebApi.ApplicationLayer.Interface;
+﻿using IS5.TutoriaFormat.WebApi.ApplicationLayer.Dto;
+using IS5.TutoriaFormat.WebApi.ApplicationLayer.Interface;
 using System.Text.RegularExpressions;
 using Xceed.Document.NET;
 using Xceed.Words.NET;
 
 namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
 {
-    public class FormatThreeApplication:IFormatThreeApplication
+    public class FormatThreeApplication : IFormatThreeApplication
     {
         private Dictionary<string, string> _replacePatterns = new Dictionary<string, string>();
         private const string _templatePath = @"Modules\Templates\FORMATO 03.docx";
@@ -53,10 +54,26 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
                     document.ReplaceText(replaceText);
                 }
                 document.SaveAs(_reportPath + professor.ElementAt(3).Value + "-F03.docx");
-                //GenerateFormatAsHtml((string)professor.ElementAt(4).Value);
 
             }
             
+        }
+        public ResponseDto getFormat(dynamic dynamic)
+        {
+            var response = new ResponseDto();
+            var professor = dynamic[0] as IDictionary<string, object>;
+            using (var document = DocX.Load(_reportPath + professor.ElementAt(3).Value + "-F03.docx"))
+            {
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    document.SaveAs(memoryStream);
+                    response.Format = memoryStream.ToArray();
+                    response.Status = true;
+                    response.NumberFormat = 1;
+                    response.Name = professor.ElementAt(3).Value + "-F03";
+                }
+            }
+            return response;
         }
         public void loadDictonary(IDictionary<string, object> professor)
         {
@@ -83,6 +100,24 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Main
             widthColumn[5] = 30f;
 
             return widthColumn;
+        }
+
+        public void deleteFormat(dynamic dynamic)
+        {
+            var professor = dynamic[0] as IDictionary<string, object>;
+            var path = _reportPath + professor.ElementAt(3).Value + "-F03.docx";
+            try
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+            }
+            catch
+            {
+
+            }
         }
     }
 }

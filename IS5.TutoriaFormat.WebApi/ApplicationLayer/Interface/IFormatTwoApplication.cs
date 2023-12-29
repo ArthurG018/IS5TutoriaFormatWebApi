@@ -7,5 +7,6 @@ namespace IS5.TutoriaFormat.WebApi.ApplicationLayer.Interface
     {
         void generateFormat(dynamic dynamic);
         ResponseDto getFormat(dynamic dynamic);
+        void deleteFormat(dynamic dynamic);
     }
 }
